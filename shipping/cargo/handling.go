@@ -12,8 +12,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/go-kit/examples/shipping/location"
-	"github.com/go-kit/examples/shipping/voyage"
+	"github.com/pabagan/go-kit/shipping/location"
+	"github.com/pabagan/go-kit/shipping/voyage"
 )
 
 // HandlingActivity represents how and where a cargo can be handled, and can

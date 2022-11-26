@@ -1,4 +1,4 @@
-module github.com/go-kit/examples
+module github.com/pabagan/go-kit
 
 go 1.16
 

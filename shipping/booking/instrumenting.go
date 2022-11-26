@@ -5,8 +5,8 @@ import (
 
 	"github.com/go-kit/kit/metrics"
 
-	"github.com/go-kit/examples/shipping/cargo"
-	"github.com/go-kit/examples/shipping/location"
+	"github.com/pabagan/go-kit/shipping/cargo"
+	"github.com/pabagan/go-kit/shipping/location"
 )
 
 type instrumentingService struct {

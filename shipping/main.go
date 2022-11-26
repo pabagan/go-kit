@@ -16,14 +16,14 @@ import (
 	"github.com/go-kit/kit/log"
 	kitprometheus "github.com/go-kit/kit/metrics/prometheus"
 
-	"github.com/go-kit/examples/shipping/booking"
-	"github.com/go-kit/examples/shipping/cargo"
-	"github.com/go-kit/examples/shipping/handling"
-	"github.com/go-kit/examples/shipping/inmem"
-	"github.com/go-kit/examples/shipping/inspection"
-	"github.com/go-kit/examples/shipping/location"
-	"github.com/go-kit/examples/shipping/routing"
-	"github.com/go-kit/examples/shipping/tracking"
+	"github.com/pabagan/go-kit/shipping/booking"
+	"github.com/pabagan/go-kit/shipping/cargo"
+	"github.com/pabagan/go-kit/shipping/handling"
+	"github.com/pabagan/go-kit/shipping/inmem"
+	"github.com/pabagan/go-kit/shipping/inspection"
+	"github.com/pabagan/go-kit/shipping/location"
+	"github.com/pabagan/go-kit/shipping/routing"
+	"github.com/pabagan/go-kit/shipping/tracking"
 )
 
 const (

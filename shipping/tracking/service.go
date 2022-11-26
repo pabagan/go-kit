@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/go-kit/examples/shipping/cargo"
+	"github.com/pabagan/go-kit/shipping/cargo"
 )
 
 // ErrInvalidArgument is returned when one or more arguments are invalid.

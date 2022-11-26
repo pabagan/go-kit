@@ -12,7 +12,7 @@ import (
 	kittransport "github.com/go-kit/kit/transport"
 	kithttp "github.com/go-kit/kit/transport/http"
 
-	"github.com/go-kit/examples/shipping/cargo"
+	"github.com/pabagan/go-kit/shipping/cargo"
 )
 
 // MakeHandler returns a handler for the tracking service.
