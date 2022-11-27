@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      target: prod
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    depends_on:
+      - redis
+      - postgres
+    env_file:
+      - ./.env.docker.local
+    environment:
+      REDIS_URL: redis:6379
+    networks:
+      - go-kit-module
+
+  postgres:
+    image: postgres
+    container_name: buyback-api-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: test
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+    ports:
+      - "5432:5432"
+
+  # Redis Service
+  redis:
+    image: "redis:alpine" # Use a public Redis image to build the redis service
+    restart: unless-stopped
+    networks:
+      - go-kit-module
+
+networks:
+  go-kit-module:
