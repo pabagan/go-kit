@@ -14,8 +14,8 @@ jobs:
         with:
           go-version: '^1.19.3'
 
+      - uses: actions/checkout@v2ß
       - name: Setup GO environment
-      - uses: actions/checkout@v2
         run: |
           cd ./src && go mod download
           cd ./src && go get -t .
