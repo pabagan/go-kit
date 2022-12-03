@@ -17,8 +17,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: Setup GO environment
         run: |
-          cd ./src && go mod download
-          cd ./src && go get -t .
+          cd src
+          go mod download
+          go get -t .
 
       - name: Vet
         run: |
