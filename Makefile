@@ -38,13 +38,8 @@ build:  		## build Go code
 
 .PHONY: test
 test:
-	echo "  >  test steps..."
-	golint ./...
+	echo "  >  Running vet ..."
 	go vet ./...
-	go test ./...
-
-.PHONY: test-cov
-test-cov:
 	echo "  >  Running tests and generating coverage output ..."
 	go test ./... -coverprofile coverage.out -covermode count
 	sleep 2 # Sleeping to allow for coverage.out file to get generated
