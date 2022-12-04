@@ -19,9 +19,9 @@ curl -XPOST -d'{"s":"hello, world"}' localhost:8080/uppercase
 
 ## TODO
 * Add linter
-* Test runner
-* Code coverage
 
 ## DONE
 * Dockerfile
 * Makefile
+* Code coverage
+* Test runner
