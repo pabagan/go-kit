@@ -1,4 +1,11 @@
-APP=go-kit
+ENV=local
+SERVICE_NAME=go-kit
+POSTGRES_HOST=postgres
+POSTGRES_DB=test
+POSTGRES_PORT=5432
+POSTGRES_USER=user
+POSTGRES_PASSWORD=pass
+POSTGRES_DRIVER=postgres
 
 ifndef ${TAG}
 	TAG := $(shell git --git-dir=$(PWD)/.git rev-parse HEAD)
@@ -20,20 +27,32 @@ info:			## Useful information
 	@echo "Workdir (pwd): \t\t${PWD}"
 	@echo "Git branch: \t\t${BRANCH}"
 	@echo "Git tag: \t\t${TAG}"
-	@echo "Git app: \t\t${APP}"
+	@echo "Git app: \t\t${SERVICE_NAME}"
 	@echo "Git short tag: \t\t${SHORT_TAG}"
-	@echo "Docker repo: \t\t${REGISTRY}"
 	@echo "\n"
 
+
+.PHONY: start
+start:
+	SERVICE_NAME=$(SERVICE_NAME) \
+	ENV=$(ENV) \
+	POSTGRES_DRIVER=$(POSTGRES_DRIVER) \
+	POSTGRES_DB=$(POSTGRES_DB) \
+	POSTGRES_HOST=$(POSTGRES_HOST) \
+    POSTGRES_PORT=$(POSTGRES_PORT) \
+    POSTGRES_USER=$(POSTGRES_USER) \
+    POSTGRES_PASSWORD=$(POSTGRES_PASSWORD) \
+	go run src/main.go
+
 .PHONY: format
-lint:			## format Go code
+format:			## format Go code
 	echo "  >  Formatting Go code..."
 	gofmt -l -s -w .
 
 .PHONY: build
 build:  		## build Go code
 	echo "  >  building Go code..."
-	go build -v -o /usr/local/bin/app ./...
+	go build -v ./...
 
 
 .PHONY: test
@@ -41,6 +60,15 @@ test:
 	echo "  >  Running vet ..."
 	go vet ./...
 	echo "  >  Running tests and generating coverage output ..."
+
+	SERVICE_NAME=$(SERVICE_NAME) \
+	ENV=$(ENV) \
+	POSTGRES_DRIVER=$(POSTGRES_DRIVER) \
+	POSTGRES_DB=$(POSTGRES_DB) \
+	POSTGRES_HOST=$(POSTGRES_HOST) \
+	POSTGRES_PORT=$(POSTGRES_PORT) \
+	POSTGRES_USER=$(POSTGRES_USER) \
+	POSTGRES_PASSWORD=$(POSTGRES_PASSWORD) \
 	go test ./... -coverprofile coverage.out -covermode count
 	sleep 2 # Sleeping to allow for coverage.out file to get generated
 	@echo "Current test coverage : $(shell go tool cover -func=coverage.out | grep total | grep -Eo '[0-9]+\.[0-9]+') %"
