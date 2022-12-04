@@ -1,13 +1,13 @@
 APP=go-kit
 
 ifndef ${TAG}
-	TAG := $(shell git --git-dir=$(PWD)/../../.git rev-parse HEAD)
+	TAG := $(shell git --git-dir=$(PWD)/.git rev-parse HEAD)
 endif
 ifndef ${SHORT_TAG}
-	SHORT_TAG := $(shell git --git-dir=$(PWD)/../../.git rev-parse --short HEAD)
+	SHORT_TAG := $(shell git --git-dir=$(PWD)/.git rev-parse --short HEAD)
 endif
 ifndef ${BRANCH}
-	BRANCH := $(shell git --git-dir=$(PWD)/../../.git rev-parse --abbrev-ref HEAD)
+	BRANCH := $(shell git --git-dir=$(PWD)/.git rev-parse --abbrev-ref HEAD)
 endif
 
 .PHONY: info
