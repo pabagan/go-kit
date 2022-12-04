@@ -15,7 +15,9 @@ jobs:
           go-version: '^1.19.3'
       - name: Format check
         run: gofmt -l .
-#
+      - name: Setup GO environment
+        run: go mod download
+
 #      - name: Setup GO environment
 #        run: |
 #          go mod download
