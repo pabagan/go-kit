@@ -1,4 +1,4 @@
-package main
+package items
 
 import (
 	"net/http"
@@ -12,7 +12,7 @@ import (
 	httptransport "github.com/go-kit/kit/transport/http"
 )
 
-func main() {
+func ModuleItemsStart() {
 	logger := log.NewLogfmtLogger(os.Stderr)
 
 	fieldKeys := []string{"method", "error"}
@@ -35,25 +35,18 @@ func main() {
 		Help:      "The result of each count method.",
 	}, []string{}) // no fields here
 
-	var svc StringService
-	svc = stringService{}
+	var svc ItemService
+	svc = itemService{}
 	svc = loggingMiddleware{logger, svc}
 	svc = instrumentingMiddleware{requestCount, requestLatency, countResult, svc}
 
-	uppercaseHandler := httptransport.NewServer(
-		makeUppercaseEndpoint(svc),
-		decodeUppercaseRequest,
+	saveHandler := httptransport.NewServer(
+		makeSaveEndpoint(svc),
+		decodeSaveRequest,
 		encodeResponse,
 	)
 
-	countHandler := httptransport.NewServer(
-		makeCountEndpoint(svc),
-		decodeCountRequest,
-		encodeResponse,
-	)
-
-	http.Handle("/uppercase", uppercaseHandler)
-	http.Handle("/count", countHandler)
+	http.Handle("/save", saveHandler)
 	http.Handle("/metrics", promhttp.Handler())
 	logger.Log("msg", "HTTP", "addr", ":8080")
 	logger.Log("err", http.ListenAndServe(":8080", nil))

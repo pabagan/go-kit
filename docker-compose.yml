@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   app:
+    command: sh -c "/wait && make test"
     build:
       context: .
       target: prod

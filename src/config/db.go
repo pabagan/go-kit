@@ -8,6 +8,14 @@ import (
 	"os"
 )
 
+type DatabaseConfig struct {
+	POSTGRES_HOST     string
+	POSTGRES_PORT     int8
+	POSTGRES_USER     string
+	POSTGRES_PASSWORD string
+	POSTGRES_DB       string
+}
+
 func Init() *gorm.DB {
 	// Environment variables
 	ENV := os.Getenv("ENV")
@@ -27,13 +35,21 @@ func Init() *gorm.DB {
 	dsn := fmt.Sprintf(
 		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable", POSTGRES_HOST, POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT)
 
-	db, err := gorm.Open(postgres.New(postgres.Config{DriverName: driverName, DSN: dsn}), &gorm.Config{SkipDefaultTransaction: true, Logger: logger.Default.LogMode(logger.Silent)})
+	db, err := gorm.Open(
+		postgres.New(postgres.Config{
+			DriverName: driverName,
+			DSN:        dsn,
+		}),
+		&gorm.Config{
+			SkipDefaultTransaction: true,
+			Logger:                 logger.Default.LogMode(logger.Silent),
+		})
 
 	if err != nil {
 		panic("Failed to connect to database!")
 	}
 
-	db.Exec(fmt.Sprintf("CREATE SCHEMA IF NOT EXISTS %s", SCHEMA_NAME))
+	db.Exec(fmt.Sprintf("CREATE SCHEMA IF NOT EXISTS %s", DATABASE_SCHEMA))
 
 	return db
 }
